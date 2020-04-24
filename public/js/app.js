@@ -1957,9 +1957,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      errors: [],
       form: {
         title: '',
         excerpt: '',
@@ -1975,6 +1988,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.form = res.data;
 
         _this.$emit('postCreated', _this.form);
+      })["catch"](function (err) {
+        console.log(err.response.data.errors);
+        _this.errors = err.response.data.errors;
       });
     }
   }
@@ -37734,6 +37750,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    class: { "is-invalid": _vm.errors.title },
                     attrs: {
                       type: "text",
                       id: "title",
@@ -37749,7 +37766,18 @@ var render = function() {
                         _vm.$set(_vm.form, "title", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.title
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [_c("strong", [_vm._v(_vm._s(_vm.errors.title[0]))])]
+                      )
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
@@ -37767,6 +37795,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    class: { "is-invalid": _vm.errors.excerpt },
                     attrs: {
                       id: "excerpt",
                       name: "excerpt",
@@ -37781,7 +37810,18 @@ var render = function() {
                         _vm.$set(_vm.form, "excerpt", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.excerpt
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [_c("strong", [_vm._v(_vm._s(_vm.errors.excerpt[0]))])]
+                      )
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
@@ -37799,6 +37839,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
+                    class: { "is-invalid": _vm.errors.published_at },
                     attrs: {
                       type: "date",
                       id: "published_at",
@@ -37813,7 +37854,22 @@ var render = function() {
                         _vm.$set(_vm.form, "published_at", $event.target.value)
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.published_at
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "invalid-feedback",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _c("strong", [
+                            _vm._v(_vm._s(_vm.errors.published_at[0]))
+                          ])
+                        ]
+                      )
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),

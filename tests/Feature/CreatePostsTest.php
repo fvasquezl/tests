@@ -85,7 +85,7 @@ class CreatePostsTest extends TestCase
         return array_merge([
             'title' => 'My Title',
             'excerpt' => 'My Excerpt',
-            'published_at' => Carbon::yesterday()
+            'published_at' => Carbon::yesterday()->toDateTimeString()
         ],$overrides);
     }
 }

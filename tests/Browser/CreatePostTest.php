@@ -31,15 +31,40 @@ class CreatePostTest extends DuskTestCase
                     $modal->type('title','My first title')
                         ->type('excerpt','My first excerpt')
                         ->type('published_at',Carbon::yesterday()->format('m/d/Y'))
-                        ->press('#submit-post')->screenshot('posts')
+                        ->press('#submit-post')
                         ->pause(1000);
                 })
                 ->assertPathIs('/');
         });
-        $this->assertDatabaseHas('posts',[
-            'title'=>'My first title'
-        ]);
+        $this->assertDatabaseCount('posts',1);
     }
 
 
+    /**
+     * A Dusk test example.
+     * @test
+     * @return void
+     * @throws \Throwable
+     */
+    public function show_validation_on_creation_post_form()
+    {
+        $user=factory(User::class)->create();
+
+        $this->browse(function (Browser $browser) use($user) {
+            $browser->loginAs($user)
+                ->visit('/')
+                ->press('#create-modal')
+                ->waitFor('#createPostModal',5)
+                ->whenAvailable('#createPostModal', function($modal){
+                    $modal->press('#submit-post')
+                        ->pause(1000)
+                        ->assertSeeErrors([
+                            'title' => 'The title field is required.',
+                            'excerpt' =>'The excerpt field is required.',
+                            'published_at' =>'The published at field is required.'
+                        ]);
+                });
+        });
+        $this->assertDatabaseEmpty('posts');
+    }
 }
