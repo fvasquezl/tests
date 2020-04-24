@@ -11,10 +11,12 @@ use Tests\DuskTestCase;
 class CreatePostTest extends DuskTestCase
 {
     use DatabaseMigrations;
+
     /**
      * A Dusk test example.
      * @test
      * @return void
+     * @throws \Throwable
      */
     public function a_registered_user_can_create_a_post()
     {
@@ -22,21 +24,22 @@ class CreatePostTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use($user) {
             $browser->loginAs($user)
-            ->visit('/posts')
-                ->type('title','My first title')
-                ->type('excerpt','My first excerpt')
-                ->type('published_at',Carbon::yesterday()->format('m/d/Y'))
-                ->press('#create-post')->screenshot('posts')
-                ->assertSee('My first title')
-            ;
+            ->visit('/')
+                ->press('#create-modal')
+                ->waitFor('#createPostModal',5)
+                ->whenAvailable('#createPostModal', function($modal){
+                    $modal->type('title','My first title')
+                        ->type('excerpt','My first excerpt')
+                        ->type('published_at',Carbon::yesterday()->format('m/d/Y'))
+                        ->press('#submit-post')->screenshot('posts')
+                        ->pause(1000);
+                })
+                ->assertPathIs('/');
         });
+        $this->assertDatabaseHas('posts',[
+            'title'=>'My first title'
+        ]);
     }
 
-    /**
-     * @test
-     */
-    public function all_fields_on_posts_are_required()
-    {
-        
-    }
+
 }

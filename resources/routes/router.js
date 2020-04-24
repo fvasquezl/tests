@@ -7,12 +7,12 @@ import welcome from '../js/views/welcome/welcome';
 import posts from '../js/views/posts/posts';
 
 const routes = [{
-    path: '/posts',
+    path: '/',
     name: 'posts',
     props: true,
     component: posts
 },{
-    path: '/',
+    path: '/welcome',
     name: 'welcome',
     props: true,
     component: welcome
