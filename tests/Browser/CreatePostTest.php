@@ -26,12 +26,12 @@ class CreatePostTest extends DuskTestCase
             $browser->loginAs($user)
             ->visit('/')
                 ->press('#create-modal')
-                ->waitFor('#createPostModal',5)
-                ->whenAvailable('#createPostModal', function($modal){
+                ->waitFor('@my-modal',5)
+                ->whenAvailable('@my-modal', function($modal){
                     $modal->type('title','My first title')
                         ->type('excerpt','My first excerpt')
                         ->type('published_at',Carbon::yesterday()->format('m/d/Y'))
-                        ->press('#submit-post')
+                        ->press('@submit-create-btn')
                         ->pause(1000);
                 })
                 ->assertPathIs('/');
@@ -54,8 +54,8 @@ class CreatePostTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit('/')
                 ->press('#create-modal')
-                ->waitFor('#createPostModal',5)
-                ->whenAvailable('#createPostModal', function($modal){
+                ->waitFor('modal',5)
+                ->whenAvailable('modal', function($modal){
                     $modal->press('#submit-post')
                         ->pause(1000)
                         ->assertSeeErrors([

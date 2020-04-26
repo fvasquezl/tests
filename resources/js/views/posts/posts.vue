@@ -5,29 +5,41 @@
                 <div class="card">
                     <div class="card-header">
                         Posts
-                        <button type="button" class="btn btn-primary" id="create-modal" data-toggle="modal" data-target="#createPostModal">
-                            Create Post
-                        </button>
+                        <button type="button" id="create-modal" class="btn btn-primary" @click="postCreated">Create Posts</button>
                     </div>
                     <div class="card-body">
-
+                      <p>Posts list</p>
                     </div>
                 </div>
             </div>
         </div>
-        <create-post-modal v-on:postCreated=postCreated ></create-post-modal>
+        <modal title="Create Posts" :is-small="false" :backdropClose="false" v-if="show_modal" @close="show_modal = false">
+            <post-form @close="show_modal = false"
+                       :edit_mode=false
+                       :edit_post=false>
+            </post-form>
+        </modal>
     </div>
 </template>
 
 <script>
-    import CreatePostModal from "../../components/modal";
+    import CreatePostModal from "./partials/postsform";
+    import Modal from '../../components/modal';
+    import PostForm from './partials/postsform'
     export default {
         components:{
-            CreatePostModal
+            Modal,
+            PostForm
+        },
+        data(){
+            return {
+                show_modal: false,
+            }
         },
         methods:{
             postCreated(){
-                $('#createPostModal').modal('hide');
+                this.show_modal = true
+                //$('#createPostModal').modal('hide');
             }
         }
     };
