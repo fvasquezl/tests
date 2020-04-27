@@ -23,7 +23,6 @@
 </template>
 
 <script>
-    import CreatePostModal from "./partials/postsform";
     import Modal from '../../components/modal';
     import PostForm from './partials/postsform'
     export default {
