@@ -2123,8 +2123,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _partials_postsform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/postsform */ "./resources/js/views/posts/partials/postsform.vue");
-/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/modal */ "./resources/js/components/modal.vue");
+/* harmony import */ var _components_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/modal */ "./resources/js/components/modal.vue");
+/* harmony import */ var _partials_postsform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/postsform */ "./resources/js/views/posts/partials/postsform.vue");
 //
 //
 //
@@ -2149,13 +2149,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Modal: _components_modal__WEBPACK_IMPORTED_MODULE_1__["default"],
-    PostForm: _partials_postsform__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Modal: _components_modal__WEBPACK_IMPORTED_MODULE_0__["default"],
+    PostForm: _partials_postsform__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -2164,7 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postCreated: function postCreated() {
-      this.show_modal = true; //$('#createPostModal').modal('hide');
+      this.show_modal = true;
     }
   }
 });

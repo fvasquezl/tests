@@ -23,7 +23,6 @@
 </template>
 
 <script>
-    import CreatePostModal from "./partials/postsform";
     import Modal from '../../components/modal';
     import PostForm from './partials/postsform'
     export default {
@@ -39,7 +38,6 @@
         methods:{
             postCreated(){
                 this.show_modal = true
-                //$('#createPostModal').modal('hide');
             }
         }
     };
