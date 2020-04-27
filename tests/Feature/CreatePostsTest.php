@@ -34,10 +34,11 @@ class CreatePostsTest extends TestCase
         $response = $this->postJson(route('api.posts.store'),$this->postData());
 
         $this->assertDatabaseHas('posts',$this->postData());
+
         $response->assertStatus(200);
 
-        $response->assertJsonStructure([
-            'post'=>['user_id','title','excerpt','published_at']
+        $response->assertJson([
+            'success'=>'The post has been successfully created'
         ]);
     }
 

@@ -34,9 +34,11 @@ class CreatePostTest extends DuskTestCase
                         ->press('@submit-create-btn')
                         ->pause(1000);
                 })
-                ->assertPathIs('/');
+                ->assertPathIs('/')
+                ->assertSee('The post has been successfully created');
         });
         $this->assertDatabaseCount('posts',1);
+
     }
 
 
@@ -54,9 +56,9 @@ class CreatePostTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit('/')
                 ->press('#create-modal')
-                ->waitFor('modal',5)
-                ->whenAvailable('modal', function($modal){
-                    $modal->press('#submit-post')
+                ->waitFor('@my-modal',5)
+                ->whenAvailable('@my-modal', function($modal){
+                    $modal->press('@submit-create-btn')
                         ->pause(1000)
                         ->assertSeeErrors([
                             'title' => 'The title field is required.',

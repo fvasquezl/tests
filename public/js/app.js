@@ -2093,7 +2093,7 @@ __webpack_require__.r(__webpack_exports__);
       Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Your work has been saved',
+        title: res.data.success,
         showConfirmButton: false,
         timer: 1500
       });
@@ -2164,7 +2164,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     postCreated: function postCreated() {
-      this.show_modal = true; //$('#createPostModal').modal('hide');
+      this.show_modal = true;
     }
   }
 });

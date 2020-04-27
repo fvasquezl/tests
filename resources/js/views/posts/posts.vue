@@ -39,7 +39,6 @@
         methods:{
             postCreated(){
                 this.show_modal = true
-                //$('#createPostModal').modal('hide');
             }
         }
     };

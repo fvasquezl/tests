@@ -3,26 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\PostStoreRequest;
 
 class PostsController extends Controller
 {
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        $this->validate($request, [
-            'title' => 'Required|min:5',
-            'excerpt' => 'Required|min:5',
-            'published_at' => 'Required'
-        ]);
-
-        $post = Post::create([
-            'user_id' => $request->user()->id,
-            'title' => $request->title,
-            'excerpt' => $request->excerpt,
-            'published_at' => $request->published_at
-        ]);
-
-        return response(['post' => $post]);
+        $post = $request->createPost();
+        return response(['success'=> 'The post has been successfully created']);
     }
 }
