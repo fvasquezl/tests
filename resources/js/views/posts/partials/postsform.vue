@@ -65,6 +65,8 @@
             return {
                 customToolbar: [
                     ["bold", "italic", "underline"],
+                    [{ 'header': 1 }, { 'header': 2 }],
+                    [{ 'size': ['small', false, 'large', 'huge'] }],
                     [{ list: "ordered" }, { list: "bullet" }],
                     ["image", "code-block"]
                 ],
