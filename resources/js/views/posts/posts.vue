@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <modal title="Create Posts" :is-small="false" :backdropClose="false" v-if="show_modal" @close="show_modal = false">
+        <modal title="Create Posts" :isXLarge="true" :backdropClose="false" v-if="show_modal" @close="show_modal = false">
             <post-form @close="show_modal = false"
                        :edit_mode=false
                        :edit_post=false>

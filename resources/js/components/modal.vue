@@ -34,6 +34,7 @@
         props: {
             "title": {default: ""},
             "modalClasses": {default: ""},
+            "isXLarge": {default: false},
             "isLarge": {default: false},
             "isSmall": {default: false},
             "hasHeader": {default: true},
@@ -60,6 +61,9 @@
         },
         computed: {
             modalSizeClasses() {
+                if (this.isXLarge) {
+                    return "modal-xl";
+                }
                 if (this.isLarge) {
                     return "modal-lg";
                 }
