@@ -19,7 +19,10 @@ class CreatePostsTable extends Migration
             $table->mediumText('excerpt');
             $table->date('published_at');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

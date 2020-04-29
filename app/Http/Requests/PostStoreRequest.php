@@ -28,6 +28,7 @@ class PostStoreRequest extends FormRequest
             'title' =>  ['required','string','min:5'],
             'excerpt' =>  ['required','string','min:5'],
             'published_at' =>  ['required'],
+            'category_id' =>  ['required'],
         ];
         if ($this->method()=='PUT'){
             //
@@ -41,12 +42,13 @@ class PostStoreRequest extends FormRequest
             'user_id' => auth()->id(),
             'title' => $this->title,
             'excerpt' => $this->excerpt,
-            'published_at' => $this->published_at
+            'published_at' => $this->published_at,
+            'category_id' => $this->category_id
         ]);
         return $post;
     }
 
-    public function updateSku($post)
+    public function updatePost($post)
     {
         $post->update($this->all());
 

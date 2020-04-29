@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,6 +30,7 @@ class CreatePostsTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
+        factory(Category::class)->create()->id;
 
         $this->actingAs($user);
         $response = $this->postJson(route('api.posts.store'),$this->postData());
@@ -53,12 +55,13 @@ class CreatePostsTest extends TestCase
         $response = $this->postJson(route('api.posts.store'),$this->postData([
             'title' => '',
             'excerpt' => '',
-            'published_at' => ''
+            'published_at' => '',
+            'category_id' => ''
         ]));
         $response->assertStatus(422);
 
         $response->assertJsonStructure([
-            'message','errors'=>['title','excerpt','published_at']
+            'message','errors'=>['title','excerpt','published_at','category_id']
         ]);
     }
 
@@ -86,7 +89,8 @@ class CreatePostsTest extends TestCase
         return array_merge([
             'title' => 'My Title',
             'excerpt' => 'My Excerpt',
-            'published_at' => Carbon::yesterday()->toDateTimeString()
+            'published_at' => Carbon::yesterday()->toDateTimeString(),
+            'category_id' => 1,
         ],$overrides);
     }
 }

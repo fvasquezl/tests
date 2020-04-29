@@ -23,7 +23,8 @@ Route::middleware('auth')
     ->namespace('Api')
     ->prefix('api')
     ->name('api.')->group(function (){
-    Route::apiResource('posts','PostsController');
+        Route::apiResource('posts','PostsController');
+        Route::apiResource('categories','CategoriesController');
 });
 
 Route::get('/{any?}', 'HomeController@index')->name('home')->where('any', '.*');

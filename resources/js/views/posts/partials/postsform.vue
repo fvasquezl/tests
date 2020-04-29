@@ -17,6 +17,14 @@
                         </span>
                     </div>
                     <div class="form-group">
+                        <label for="categories">Example select</label>
+                        <select2 :options="categories"  id=categories name="categories" v-model="selected"></select2>
+                        <pre>{{categories}}</pre>
+                        <pre class="code">
+                            <p v-text="selected"></p>
+                        </pre>
+                    </div>
+                    <div class="form-group">
                         <label for="excerpt">Excerpt</label>
                         <vue-editor id="excerpt"
                                     name="excerpt"
@@ -31,7 +39,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="published_at">Published at</label>
+                        <label for="published_at">Published ca</label>
                         <input type="date"
                                id="published_at"
                                name="published_at"
@@ -58,9 +66,11 @@
 <script>
     import {VueEditor} from "vue2-editor";
 
+    import select2 from "../../../components/select2";
+
     export default {
         props: ['edit_post', 'edit_mode'],
-        components: { VueEditor },
+        components: { VueEditor, select2},
         data() {
             return {
                 customToolbar: [
@@ -71,12 +81,21 @@
                     ["image", "code-block"]
                 ],
                 errors: [],
+                categories:{},
                 post: {
                     title: '',
                     excerpt: '',
-                    published_at: ''
+                    published_at: '',
+                    category_id:''
                 },
+                selected : [],
             }
+        },
+        mounted() {
+            axios.get('api/categories')
+                .then((res)=>{
+                    this.categories = res.data;
+                })
         },
         methods: {
             createPost() {
