@@ -18,7 +18,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return Category::pluck('name','id');
+        $categories = Category::get();
+        return new CategoriesCollection($categories);
     }
 
     /**

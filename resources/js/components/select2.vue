@@ -1,55 +1,37 @@
 <template>
-    <select v-bind:name="name" class="form-control" v-bind:multiple="multiple"></select>
+
 </template>
 
-<script>
-    import Select2 from 'select2';
-    export default {
-        props: {
-            name: '',
-            options: {
-                Object
-            },
-            value: null,
-            multiple: {
-                Boolean,
-                default: false
 
-            }
+<script>
+    import Multiselect from 'vue-multiselect'
+
+    export default {
+        components: {
+            Multiselect
         },
-        data() {
+        data () {
             return {
-                select2data: []
+                value: [
+                    { name: 'Javascript', code: 'js' }
+                ],
+                options: [
+                    { name: 'Vue.js', code: 'vu' },
+                    { name: 'Javascript', code: 'js' },
+                    { name: 'Open Source', code: 'os' }
+                ]
             }
-        },
-        mounted() {
-            this.formatOptions()
-            let vm = this
-            let select = $(this.$el)
-            select
-                .select2({
-                    placeholder: 'Select',
-                    theme: 'bootstrap',
-                    width: '100%',
-                    allowClear: true,
-                    data: this.select2data
-                })
-                .on('change', function () {
-                    vm.$emit('input', select.val())
-                })
-            select.val(this.value).trigger('change')
         },
         methods: {
-            formatOptions() {
-
-                this.select2data.push({ id: '', text: 'Select' })
-                    for (let key in this.options) {
-                    this.select2data.push({ id: key, text: this.options[key] })
+            addTag (newTag) {
+                const tag = {
+                    name: newTag,
+                    code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
                 }
+                this.options.push(tag)
+                this.value.push(tag)
             }
-        },
-        destroyed: function () {
-            $(this.$el).off().select2('destroy')
         }
     }
 </script>
+

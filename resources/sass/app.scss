@@ -1,10 +1,18 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-@import '~select2/dist/css/select2.min.css';
-@import '~select2-theme-bootstrap4/dist/select2-bootstrap.min.css';
+//@import '~select2/dist/css/select2.min.css';
+//@import '~select2-theme-bootstrap4/dist/select2-bootstrap.min.css';
+
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
+
+.multiselect.invalid .multiselect__tags,
+.multiselect.invalid .multiselect__tags span,
+.multiselect.invalid .multiselect__tags input {
+    background:red;
+}

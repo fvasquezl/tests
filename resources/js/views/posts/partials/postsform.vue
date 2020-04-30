@@ -17,12 +17,21 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <label for="categories">Example select</label>
-                        <select2 :options="categories"  id=categories name="categories" v-model="selected"></select2>
-                        <pre>{{categories}}</pre>
-                        <pre class="code">
-                            <p v-text="selected"></p>
-                        </pre>
+                        <label for="categories">Categories</label>
+                        <multiselect
+                            v-model="post.categories"
+                            tag-placeholder="Seleccionar Categorias"
+                            placeholder="Buscar o agregar Categorias"
+                            id="categories"
+                            name="categories"
+                            label="name"
+                            track-by="id"
+                            :class="{'is-invalid': errors.categories }"
+                            :options="categories"
+                            :multiple="true"
+                            :taggable="true"
+                            @tag="addCategory"
+                        ></multiselect>
                     </div>
                     <div class="form-group">
                         <label for="excerpt">Excerpt</label>
@@ -66,11 +75,11 @@
 <script>
     import {VueEditor} from "vue2-editor";
 
-    import select2 from "../../../components/select2";
+    import Multiselect from "vue-multiselect";
 
     export default {
         props: ['edit_post', 'edit_mode'],
-        components: { VueEditor, select2},
+        components: { VueEditor, Multiselect},
         data() {
             return {
                 customToolbar: [
@@ -81,23 +90,28 @@
                     ["image", "code-block"]
                 ],
                 errors: [],
-                categories:{},
+                categories: [],
                 post: {
                     title: '',
                     excerpt: '',
                     published_at: '',
-                    category_id:''
+                    categories:[]
                 },
                 selected : [],
             }
         },
         mounted() {
-            axios.get('api/categories')
-                .then((res)=>{
-                    this.categories = res.data;
-                })
+            this.fetchCategories();
         },
         methods: {
+            fetchCategories(){
+                axios.get('api/categories').then((res)=>{
+                    this.categories= _.map(res.data.data,function (data) {
+                        let pick = _.pick(data,'name','id');
+                        return  {id:pick.id,name:pick.name};
+                    })
+                })
+            },
             createPost() {
                 axios.post('api/posts', this.post)
                     .then(res => {
@@ -130,6 +144,14 @@
                     this.post = this.edit_post;
                 }
             },
+            addCategory(newCategory){
+                const category = {
+                    name: newCategory,
+                    id: newCategory.substring(0, 2) + Math.floor((Math.random() * 10000000))
+                };
+                 this.categories.push(category);
+                 this.post.categories.push(category)
+            }
 
         }
     }
