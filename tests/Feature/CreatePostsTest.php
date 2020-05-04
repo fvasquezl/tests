@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\Tag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,12 +31,18 @@ class CreatePostsTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
-        factory(Category::class)->create()->id;
+        $category =factory(Category::class)->create()->id;
+        $tags = factory(Tag::class,2)->create()->pluck('id');
 
         $this->actingAs($user);
-        $response = $this->postJson(route('api.posts.store'),$this->postData());
+        $response = $this->postJson(route('api.posts.store'),$this->postData([
+            'category' => $category,
+            'tags' => $tags,
+        ]));
 
-        $this->assertDatabaseHas('posts',$this->postData());
+        $this->assertDatabaseCount('posts',1);
+        $this->assertDatabaseCount('post_tag',2);
+        $this->assertDatabaseCount('tags',2);
 
         $response->assertStatus(200);
 
@@ -90,7 +97,8 @@ class CreatePostsTest extends TestCase
             'title' => 'My Title',
             'excerpt' => 'My Excerpt',
             'published_at' => Carbon::yesterday()->toDateTimeString(),
-            'category_id' => 1,
+            'category' => 1,
+            'tag_id' => [1],
         ],$overrides);
     }
 }

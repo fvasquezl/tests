@@ -6,13 +6,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-//@import '~select2/dist/css/select2.min.css';
-//@import '~select2-theme-bootstrap4/dist/select2-bootstrap.min.css';
+@import '~select2/dist/css/select2.min.css';
+@import '~select2-bootstrap4-theme/dist/select2-bootstrap4.min.css';
+@import '~bootstrap-vue/src/index.scss';
 
-@import '~vue-multiselect/dist/vue-multiselect.min.css';
+@import "~vue2-editor/dist/vue2-editor.css";
 
-.multiselect.invalid .multiselect__tags,
-.multiselect.invalid .multiselect__tags span,
-.multiselect.invalid .multiselect__tags input {
-    background:red;
-}
+/* Import the Quill styles you want */
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.bubble.css';
+@import '~quill/dist/quill.snow.css';
+
+

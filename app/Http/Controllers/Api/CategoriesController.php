@@ -31,7 +31,7 @@ class CategoriesController extends Controller
     public function store(CategoryStoreRequest $request)
     {
         $category = $request->createCategory();
-        return response(['success'=>'The category has been created']);
+        return response(['data'=>$category,'success'=>'The category has been created']);
     }
 
     /**

@@ -39,7 +39,7 @@ class CategoryStoreRequest extends FormRequest
     public function createCategory()
     {
         return Category::create([
-            'title' => $this->name,
+            'name' => $this->name,
         ]);
     }
 

@@ -25,6 +25,7 @@ Route::middleware('auth')
     ->name('api.')->group(function (){
         Route::apiResource('posts','PostsController');
         Route::apiResource('categories','CategoriesController');
+        Route::apiResource('tags','TagsController');
 });
 
 Route::get('/{any?}', 'HomeController@index')->name('home')->where('any', '.*');

@@ -28,7 +28,8 @@ class PostStoreRequest extends FormRequest
             'title' =>  ['required','string','min:5'],
             'excerpt' =>  ['required','string','min:5'],
             'published_at' =>  ['required'],
-            'category_id' =>  ['required'],
+            'category' =>  ['required'],
+            'tags' =>  ['required'],
         ];
         if ($this->method()=='PUT'){
             //
@@ -43,8 +44,11 @@ class PostStoreRequest extends FormRequest
             'title' => $this->title,
             'excerpt' => $this->excerpt,
             'published_at' => $this->published_at,
-            'category_id' => $this->category_id
+            'category_id' => $this->category
         ]);
+        $post->syncTags($this->tags);
+
+
         return $post;
     }
 
