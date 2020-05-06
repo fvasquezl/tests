@@ -73,13 +73,12 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
-import Select2 from "../../../components/select2";
 import Select2Categories from "./catSelect2"
 import Select2Tags from "./tagsSelect2"
 
 export default {
   props: ["edit_post", "edit_mode"],
-  components: { VueEditor, Select2, Select2Categories,Select2Tags},
+  components: { VueEditor, Select2Categories,Select2Tags},
   data() {
     return {
       customToolbar: [
