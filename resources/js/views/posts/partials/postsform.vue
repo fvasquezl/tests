@@ -19,21 +19,10 @@
             </span>
           </div>
 
-        <select2-categories :errors="errors" @selected="addSelectedValue"></select2-categories>
+        <select2-categories :errors="errors" @selected="addSelectedCategory"></select2-categories>
 
-          <div class="form-group">
-            <label for="tags">Tags</label>
-            <Select2
-              v-model="post.tags"
-              id="tags"
-              :options="tags"
-              :class="{'is-invalid': errors.tags }"
-              :settings="{multiple:true, tags:true}"
-            />
-            <span v-if="errors.tags" class="invalid-feedback" role="alert">
-              <strong>{{ errors.tags[0] }}</strong>
-            </span>
-          </div>
+        <select2-tags :errors="errors" @selected="addSelectedTags"></select2-tags>
+
 
           <div class="form-group">
             <label for="excerpt">Excerpt</label>
@@ -86,10 +75,11 @@
 import { VueEditor } from "vue2-editor";
 import Select2 from "../../../components/select2";
 import Select2Categories from "./catSelect2"
+import Select2Tags from "./tagsSelect2"
 
 export default {
   props: ["edit_post", "edit_mode"],
-  components: { VueEditor, Select2, Select2Categories},
+  components: { VueEditor, Select2, Select2Categories,Select2Tags},
   data() {
     return {
       customToolbar: [
@@ -100,7 +90,7 @@ export default {
         ["image", "code-block"]
       ],
       errors: [''],
-      tags: [],
+
       post: {
         title: "",
         excerpt: "",
@@ -111,18 +101,10 @@ export default {
     };
   },
   mounted() {
-    this.fetchTags();
+
   },
   methods: {
 
-    fetchTags() {
-      axios.get("api/tags").then(res => {
-        this.tags = _.map(res.data.data, function(data) {
-          let pick = _.pick(data, "name", "id");
-          return { id: pick.id, text: pick.name };
-        });
-      });
-    },
     createPost() {
       axios
         .post("api/posts", this.post)
@@ -156,8 +138,12 @@ export default {
         this.post = this.edit_post;
       }
     },
-    addSelectedValue($event){
+    addSelectedCategory($event){
         this.post.category = $event;
+    },
+    addSelectedTags($event){
+        console.log($event)
+        this.post.tags = $event;
     }
   }
 };
