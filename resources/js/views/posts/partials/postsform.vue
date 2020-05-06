@@ -19,21 +19,7 @@
             </span>
           </div>
 
-          <div class="form-group">
-            <label for="categories">Categories</label>
-            <Select2
-              v-model="post.category"
-              id="category"
-              :options="categories"
-              :settings="{tags:true}"
-              :class="{'is-invalid': errors.category }"
-
-              @tags="createNewCategory($event)"
-            />
-            <span v-if="errors.category" class="invalid-feedback" role="alert">
-              <strong>{{ errors.category[0] }}</strong>
-            </span>
-          </div>
+        <select2-categories :errors="errors"></select2-categories>
 
           <div class="form-group">
             <label for="tags">Tags</label>
@@ -43,9 +29,6 @@
               :options="tags"
               :class="{'is-invalid': errors.tags }"
               :settings="{multiple:true, tags:true}"
-              @change="myChangeEvent($event)"
-              @select="mySelectEvent($event)"
-              @tags="addTags($event)"
             />
             <span v-if="errors.tags" class="invalid-feedback" role="alert">
               <strong>{{ errors.tags[0] }}</strong>
@@ -101,11 +84,12 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
-import Select2 from "v-select2-component";
+import Select2 from "../../../components/select2";
+import Select2Categories from "./catSelect2"
 
 export default {
   props: ["edit_post", "edit_mode"],
-  components: { VueEditor, Select2 },
+  components: { VueEditor, Select2, Select2Categories},
   data() {
     return {
       customToolbar: [
@@ -115,8 +99,7 @@ export default {
         [{ list: "ordered" }, { list: "bullet" }],
         ["image", "code-block"]
       ],
-      errors: [],
-      categories: [],
+      errors: [''],
       tags: [],
       post: {
         title: "",
@@ -128,18 +111,10 @@ export default {
     };
   },
   mounted() {
-    this.fetchCategories();
     this.fetchTags();
   },
   methods: {
-    fetchCategories() {
-      axios.get("api/categories").then(res => {
-        this.categories = _.map(res.data.data, function(data) {
-          let pick = _.pick(data, "name", "id");
-          return { id: pick.id, text: pick.name };
-        });
-      });
-    },
+
     fetchTags() {
       axios.get("api/tags").then(res => {
         this.tags = _.map(res.data.data, function(data) {
@@ -180,25 +155,6 @@ export default {
       if (this.edit_mode) {
         this.post = this.edit_post;
       }
-    },
-    createNewCategory(cat) {
-      axios
-        .post("api/categories", {'name':cat})
-        .then(res => {
-          const category = {
-            name: res.data.data.name,
-            id: res.data.data.id
-          };
-          this.categories.push(category);
-        //  this.$set(this.category, 'b', 2)
-        })
-        .catch(err => {
-          this.errors = err.response.data.errors;
-        });
-    },
-
-    createNewTag({ id, text }) {
-    //  console.log({ id, text });
     }
   }
 };
