@@ -19,7 +19,7 @@
             </span>
           </div>
 
-        <select2-categories :errors="errors"></select2-categories>
+        <select2-categories :errors="errors" @selected="addSelectedValue"></select2-categories>
 
           <div class="form-group">
             <label for="tags">Tags</label>
@@ -155,6 +155,9 @@ export default {
       if (this.edit_mode) {
         this.post = this.edit_post;
       }
+    },
+    addSelectedValue($event){
+        this.post.category = $event;
     }
   }
 };

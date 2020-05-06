@@ -28,8 +28,8 @@ export default {
     this.fetchCategories();
   },
   watch: {
-    selected(val) {
-        this.$emit('category', val)
+    selected() {
+        this.$emit('selected', this.selected)
     }
   },
   methods: {
