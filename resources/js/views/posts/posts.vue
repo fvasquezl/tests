@@ -24,7 +24,7 @@
 
 <script>
     import Modal from '../../components/modal';
-    import PostForm from './partials/postsform'
+    import PostForm from './partials/form'
     export default {
         components:{
             Modal,

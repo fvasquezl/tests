@@ -1484,3 +1484,6 @@
   .select2-gray-dark .select2-container--default.select2-container--focus .select2-selection--multiple {
     border-color: #6d7a86;
   }
+  .has-error .select2-selection {
+    border-color: rgb(185, 74, 72) !important;
+}

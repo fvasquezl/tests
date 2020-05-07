@@ -4,12 +4,16 @@
     <Select2
       v-model="selected"
       :options="categories"
-      :settings="{ placeholder:'Select Category',tags:true}"
-      :class="{'is-invalid': errors.category }"
+      :settings="{ placeholder:'Select Category',tags:true,theme: 'bootstrap4'}"
+      :invalid="errors.has('category')"
+      @keydown="errors.clear('category')"
     />
-    <span v-if="errors.category" class="invalid-feedback" role="alert">
-      <strong>{{ errors.category[0] }}</strong>
-    </span>
+    <span
+      class="invalid-feedback"
+      role="alert"
+      v-show="errors.has('category')"
+      v-text="errors.get('category')"
+    ></span>
   </div>
 </template>
 
@@ -29,7 +33,7 @@ export default {
   },
   watch: {
     selected() {
-        this.$emit('selected', this.selected)
+      this.$emit("selected", this.selected);
     }
   },
   methods: {

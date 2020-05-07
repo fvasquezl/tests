@@ -2,6 +2,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+import Form from './Form'
+window.Form = Form
+
 import router from '../routes/router'
 
 //Sweetalert

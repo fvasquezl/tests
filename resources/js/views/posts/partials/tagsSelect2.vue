@@ -4,12 +4,13 @@
     <Select2
       v-model="selected"
       :options="tags"
-      :settings="{multiple:true, tags:true}"
-      :class="{'is-invalid': errors.tags }"
+      :settings="{multiple:true, tags:true ,theme: 'bootstrap4'}"
+      :invalid="errors.has('tags')"
     />
-    <span v-if="errors.tags" class="invalid-feedback" role="alert">
-      <strong>{{ errors.tags[0] }}</strong>
-    </span>
+    <span
+      v-show="errors.has('tags')"
+      v-text="errors.get('tags')"
+    ></span>
   </div>
 </template>
 
